@@ -23,7 +23,7 @@ pip install node  # for tests
 python tool/scripts/setup/
 ```
 
-In the example above, the collector-specific scritps will setup the tables of a SQLite database. Click [here]('scripts/setup/database.py') to explore that script in more detail.
+In the example above, the collector-specific scritps will setup the tables of a SQLite database. Click [here](scripts/setup/database.py) to explore that script in more detail.
 
 You can also include crontab configuration in the script above. Here's an example:
 
@@ -53,6 +53,29 @@ Notice that in the implementation above we are storing the `stdout` on a file ca
 
 
 ## Collector / Scraper Structure
+The default way to use ScrapeWiki is to store data on a SQLite database on the user folder of its boxes -- the database has to be called `scraperwiki.sqlite`. That allows to use a series of features, such as an interactive SQL querier, an html table view with filters, API endpoints for making SQL queries remotedly, etc. There is no configuration necessary for the SQLite database -- it only needs to be placed on the box's root directory: `~/scraperwiki.sqlite`.
+
+Collectors / scrapers are generally put inside a directory called `/tool`. The code for the collector / scraper should go inside that directory. The tool directory contains five other directories:
+
+```
+.
+├── config
+├── data
+├── http
+├── scripts
+└── tests
+```
+
+Here is an explanation of each one of those:
+
+* `config` Hosts configuration files for the scraper. Usually we put a `secrets.json` file that contain HDX API keys or `dev.json` and `prod.json` files that contain specific configuration for the scraping task at hand (i.e. API endpoints and table schemas).
+* `data` Contains data you may need to use as reference in your scraper. This may be a list of country codes, URLs, etc.
+* `http` Generally contains an `index.html` file with the summary of the scraping task and any other files that are intended to be available through an API endpoint, such as a `log.txt` file.
+* `scripts` Where the scraper scripts reside.
+* `tests` Where the scraper tests reside.
+
+A more detailed folder structure can be found below:
+
 ```
 .
 ├── scraperwiki.sqlite
@@ -104,4 +127,3 @@ For now, we write our tests using Python's native `unittest`. We use `nose` to r
 source venv/bin/activate
 nosetests --with-coverage
 ```
-
