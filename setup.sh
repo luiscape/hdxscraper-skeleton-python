@@ -6,8 +6,9 @@
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
+pip install nose  # for tests
 
 #
-# Running setup scripts.
+# Running collector-specific setup scripts.
 #
 python tool/scripts/setup/
