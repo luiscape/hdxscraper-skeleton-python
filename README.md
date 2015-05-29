@@ -3,6 +3,32 @@ This is a skeleton of a Python scraper / collector used by the [Humanitarian Dat
 
 For detailed documentation about how to create and manage scrapers on ScraperWiki please refer to its official documentation [here](https://scraperwiki.com/help).
 
+## Makefile Structure
+We are using `Makefiles` to run a series of pre-determined shell scripts. Here is an example of how that `Makefile` should be structured:
+
+```Makefile
+test:
+    bash bin/test.sh;
+
+setup:
+    bash bin/setup.sh;
+
+setupsw:
+    bash bin/setup_sw.sh;
+
+run:
+    bash bin/run.sh;
+
+runsw:
+    bash bin/run.sh;
+```
+
+The commands are defined as references to shell scripts. Running those commands could be done directly by invoking a call from the terminal: 
+
+```terminal
+$ make setup
+```
+
 ## Setup Structure
 The shell script `setup.sh` should contain all the necessary calls for respective setup scripts and also to install the scraper's dependencies. Some scripts may require a database to be setup first, before they are able to run successfully; other require some other special configuration. All of those shoudl be called by the shell script. [`setup.sh`](setup.sh) contains an example:
 
