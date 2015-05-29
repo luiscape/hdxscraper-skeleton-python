@@ -30,7 +30,7 @@ $ make setup
 ```
 
 ## Setup Structure
-The shell script `setup.sh` should contain all the necessary calls for respective setup scripts and also to install the scraper's dependencies. Some scripts may require a database to be setup first, before they are able to run successfully; other require some other special configuration. All of those shoudl be called by the shell script. [`setup.sh`](setup.sh) contains an example:
+The shell script `bin/setup.sh` should contain all the necessary calls for respective setup scripts and also to install the scraper's dependencies. Some scripts may require a database to be setup first, before they are able to run successfully; other require some other special configuration. All of those shoudl be called by the shell script. [`bin/setup.sh`](bin/setup.sh) contains an example:
 
 ```shell
 #!/bin/bash
@@ -59,7 +59,7 @@ crontab -l | { cat; echo "@daily bash tool/run.sh"; } | crontab -
 That should configure the collector / scraper to run on a daily schedule.
 
 ## Usage Structure
-The shell script [`run.sh`](run.sh) contains all the necessary calls to run the script automatically. Here's an example:
+The shell script [`bin/run.sh`](bin/run.sh) contains all the necessary calls to run the script automatically. Here's an example:
 
 ```shell
 #!/bin/bash
@@ -86,6 +86,7 @@ Scrapers are generally put inside a directory called `tool/`. The scripts for th
 ```
 .
 ├── config
+├── bin
 ├── data
 ├── http
 ├── scripts
@@ -106,6 +107,12 @@ A more detailed folder structure can be found below:
 .
 ├── scraperwiki.sqlite
 └── tool
+    ├── bin
+    │   ├── run.sh
+    │   ├── runsw.sh
+    │   ├── test.sh
+    │   ├── setup.sh
+    │   └── setupsw.sh
     ├── config
     │   ├── secrets.json
     │   ├── dev.py
@@ -132,9 +139,6 @@ A more detailed folder structure can be found below:
     │       ├── __init__.py
     │       ├── db.py
     │       └── pretty_print.py
-    ├── run.sh
-    ├── setup.sh
-    ├── test.sh
     ├── requirements.txt
     ├── LICENSE.md
     └── README.md
@@ -143,7 +147,7 @@ A more detailed folder structure can be found below:
 
 
 ## Tests Structure
-For now, we write our tests using Python's native `unittest`. We use `nose` to run those tests. The shell script `test.sh` should contain all the necessary calls to run the tests you've written:
+For now, we write our tests using Python's native `unittest`. We use `nose` to run those tests. The shell script `bin/test.sh` should contain all the necessary calls to run the tests you've written:
 
 ```shell
 #!/bin/bash
